@@ -1,16 +1,21 @@
 import { useMemo } from 'react';
 import type { ApexAxisChartSeries } from 'apexcharts';
 import type { FeedstockItem } from '@/components/feed-stock-table/FeedstockTable';
+import { ONE_WEEK_MS } from '@/app/constants';
 
-export function useLineData(items: FeedstockItem[], productId: string): ApexAxisChartSeries {
+
+export function useLineData(items: FeedstockItem[], name: string, source: string, durationMs: number = ONE_WEEK_MS): ApexAxisChartSeries {
     return useMemo((): ApexAxisChartSeries => {
-        const data: Array<{ x: Date; y: number }> = items
-            .filter((item: FeedstockItem): boolean => item.product_id === productId)
-            .map((item: FeedstockItem): { x: Date; y: number } => ({
-                x: new Date(item.timestamp),
+        // eslint-disable-next-line react-hooks/purity
+        const cutoff = Date.now() - durationMs;
+        const data: Array<{ x: number; y: number }> = items
+            .filter((item: FeedstockItem): boolean => item.product_name === name && item.source === source)
+            .map((item: FeedstockItem): { x: number; y: number } => ({
+                x: new Date(item.timestamp).getTime(),
                 y: item.price,
-            }));
+            }))
+            .filter((point): boolean => point.x >= cutoff);
 
         return [{ data }];
-    }, [items, productId]);
+    }, [items, name, source, durationMs]);
 }

@@ -53,7 +53,7 @@ export default function FeedstockStream() {
                 )}
             </div>
             <div className='border-1 mt-5 overflow-y-auto rounded-xl '>
-                <PriceChart items={items} />
+                <PriceChart />
             </div>
         </div>
     );
