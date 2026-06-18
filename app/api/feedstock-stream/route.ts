@@ -10,7 +10,9 @@ const POLL_INTERVAL_MS = 30000; // 600ms — stays within 100 req/60 sec rate li
 // TODO: After fetching all the da
 export const GET = createSSEHandler((send, close, { onClose }) => {
     const start = async () => {
+        console.log('[SSE] Health check →', HEALTH_ENDPOINT);
         const health = await fetch(HEALTH_ENDPOINT);
+        console.log('[SSE] Health check ←', health.status);
         if (!health.ok) {
             send({ error: `Service unavailable (health check failed with ${health.status})` }, 'error');
             close();
@@ -18,7 +20,9 @@ export const GET = createSSEHandler((send, close, { onClose }) => {
         }
 
         const poll = async () => {
+            console.log('[SSE] Polling feed →', new Date().toISOString());
             const res = await fetch(FEED_ENDPOINT);
+            console.log('[SSE] Poll response ←', res.status);
             if (!res.ok) {
                 send({ error: `Feed responded with ${res.status}` }, 'error');
                 return;
@@ -28,7 +32,10 @@ export const GET = createSSEHandler((send, close, { onClose }) => {
 
         poll();
         const interval = setInterval(poll, POLL_INTERVAL_MS);
-        onClose(() => clearInterval(interval));
+        onClose(() => {
+            console.log('[SSE] Client disconnected, clearing interval');
+            clearInterval(interval);
+        });
     };
 
     start();
