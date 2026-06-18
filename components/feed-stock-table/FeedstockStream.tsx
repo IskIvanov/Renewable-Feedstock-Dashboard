@@ -4,6 +4,7 @@ import { useSSE } from 'use-next-sse';
 import { Zap } from 'lucide-react';
 import FeedstockTable, { FeedstockItem } from './FeedstockTable';
 import StatusBadge, { SSEConnectionState } from './StatusBadge';
+import PriceChart from '@/components/price-chart/PriceChart';
 
 export default function FeedstockStream() {
     const { data, error, connectionState } = useSSE<{ prices: FeedstockItem[] }>({
@@ -13,9 +14,9 @@ export default function FeedstockStream() {
     });
 
     const items: FeedstockItem[] = data?.prices ?? [];
-    const count = items.length;
+    const count: number = items.length;
 
-    const emptyMessage = error
+    const emptyMessage: string = error
         ? `Stream error: ${error.message}`
         : connectionState === 'connecting'
         ? 'Establishing connection…'
@@ -50,6 +51,9 @@ export default function FeedstockStream() {
                         </p>
                     </div>
                 )}
+            </div>
+            <div className='border-1 mt-5 overflow-y-auto rounded-xl '>
+                <PriceChart items={items} />
             </div>
         </div>
     );
