@@ -32,7 +32,7 @@ export default function FeedstockStream() {
                         </div>
                         <div>
                             <h1 className="text-sm font-mono font-semibold tracking-tight text-foreground">
-                                Feedstock Feed
+                                Market Pulse
                             </h1>
                             <p className="text-xs mt-0.5 font-mono text-muted-foreground">
                                 Renewable Commodities · Live Stream

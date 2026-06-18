@@ -27,13 +27,15 @@ export default function PriceChart() {
         <div className="px-5 py-4 border-t border-border">
             <div className="flex items-center justify-between mb-3">
                 <span className="text-xs font-mono font-semibold tracking-tight text-foreground">
-                    Price Chart
+                    Historical Price Chart
                 </span>
-                <select
+                <div className='flex items-center gap-2'>
+                  <p className="text-xs font-mono font-light tracking-tight text-foreground">Select a product</p>
+                  <select
                     value={effectiveKey}
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>): void => setSelectedKey(e.target.value)}
                     className="font-mono text-xs border border-border rounded px-2 py-1 bg-background text-foreground"
-                >
+                    >
                     {products.map(p => {
                         const key = productKey(p.name, p.source);
                         return (
@@ -43,6 +45,7 @@ export default function PriceChart() {
                         );
                     })}
                 </select>
+                </div>
             </div>
 
             {hasSufficientData ? (

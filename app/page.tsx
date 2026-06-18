@@ -1,5 +1,4 @@
 import FeedstockStream from "@/components/feed-stock-table/FeedstockStream";
-import PriceChart from "@/components/price-chart/PriceChart";
 
 
 export default function Home() {
