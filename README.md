@@ -2,6 +2,13 @@
 
 A real-time dashboard for monitoring renewable commodity prices. Built with Next.js 16, React 19, and ApexCharts.
 
+## Demo 
+
+
+https://github.com/user-attachments/assets/5052d353-90ec-45a2-a705-aeb1936a73e1
+
+
+
 ## Features
 
 - **Live price table** — streams feedstock prices via SSE from a mock price feed API, auto-reconnects on drop
