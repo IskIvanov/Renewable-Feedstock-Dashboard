@@ -2,9 +2,10 @@
 
 import ReactApexChart from 'react-apexcharts';
 import type { ApexAxisChartSeries } from 'apexcharts';
-import { useLineData } from './hooks/useLineData';
 import { useChartOptions } from './hooks/useChartOptions';
 import { usePriceChartData, productKey } from './hooks/usePriceChartData';
+import { useChartSeries } from './hooks/useChartSeries';
+import { ONE_DAY_MS } from '@/app/constants';
 
 export default function PriceChart() {
     const {
@@ -18,7 +19,7 @@ export default function PriceChart() {
         currency,
     } = usePriceChartData();
 
-    const series: ApexAxisChartSeries = useLineData(items, effectiveName, effectiveSource);
+    const series: ApexAxisChartSeries = useChartSeries(items, effectiveName, effectiveSource, ONE_DAY_MS)
     const options: ApexCharts.ApexOptions = useChartOptions(currency);
 
     const hasSufficientData: boolean = selectedItems.length >= 1;

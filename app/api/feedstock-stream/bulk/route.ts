@@ -3,7 +3,7 @@ import type { FeedstockItem } from '@/components/feed-stock-table/FeedstockTable
 
 export const dynamic = 'force-dynamic';
 
-const BASE_URL = 'https://renewable-price-feed-mock.onrender.com';
+const BASE_URL = process.env.FEEDSTOCK_API_BASE_URL!;
 const BULK_ENDPOINT = `${BASE_URL}/feed/bulk`;
 const HEALTH_ENDPOINT = `${BASE_URL}/health`;
 

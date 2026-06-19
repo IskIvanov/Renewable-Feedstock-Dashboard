@@ -47,8 +47,6 @@ export function usePriceChartData(): PriceChartData {
         return result;
     }, [items]);
 
-    console.log("These are the items",items)
-
     const effectiveKey: string = selectedKey || (products[0] ? productKey(products[0].name, products[0].source) : '');
 
     const [effectiveName, effectiveSource] = useMemo((): [string, string] => {

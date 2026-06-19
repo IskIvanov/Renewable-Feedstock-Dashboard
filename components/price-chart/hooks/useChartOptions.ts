@@ -31,14 +31,25 @@ export function useChartOptions(currency: string): ApexCharts.ApexOptions {
                 style: { fontFamily: 'monospace', fontSize: '11px' },
             },
         },
-        yaxis: {
-            labels: {
-                formatter: formatYLabel(currency),
-                style: { fontFamily: 'monospace', fontSize: '11px' },
+        yaxis: [
+            {
+                title: { text: `Price (${currency})`, style: { fontFamily: 'monospace', fontSize: '11px' } },
+                labels: {
+                    formatter: formatYLabel(currency),
+                    style: { fontFamily: 'monospace', fontSize: '11px' },
+                },
             },
-        },
+            {
+                opposite: true,
+                title: { text: 'Volume', style: { fontFamily: 'monospace', fontSize: '11px' } },
+                labels: {
+                    formatter: (val: number): string => val.toFixed(0),
+                    style: { fontFamily: 'monospace', fontSize: '11px' },
+                },
+            },
+        ],
         grid: { borderColor: 'hsl(var(--border))' },
         tooltip: { enabled: true, x: { format: 'dd MMM HH:mm:ss' } },
-        markers: { size: 0 },
+        markers: { size: 3 },
     }), [currency]);
 }
